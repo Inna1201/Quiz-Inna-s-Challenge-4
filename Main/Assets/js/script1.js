@@ -15,13 +15,14 @@ function startQuiz() {
 
 
 function showQuestions() {
-questionText.innerText = questions.question1
+questionText.innerText = questions[0].question1
+answerButtons.innerText = questions[0].question1.answer.text
 }
 
 
 var questions = [
     {
-        question1: 'Which one of the below is NOT a JavaScript statement?',
+        question1: 'How do you comment a line out in JavaScript?',
         answers: [
             {Text: '&&', correct: false},
             {Text: '$$', correct: false},
