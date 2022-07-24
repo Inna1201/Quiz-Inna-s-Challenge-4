@@ -1,7 +1,11 @@
 var startButton = document.getElementById("start");
 var firstQuestionElements = document.getElementById("question");
 var questionText = document.getElementById("question1")
-var answerButtons = document.getElementById("answerButtons")
+var answerButton1 = document.getElementById("answer1")
+var answerButton2 = document.getElementById("answer2")
+var answerButton3 = document.getElementById("answer3")
+var answerButton4 = document.getElementById("answer4")
+
 
 
 startButton.addEventListener('click', startQuiz)
@@ -16,7 +20,7 @@ function startQuiz() {
 
 function showQuestions() {
 questionText.innerText = questions[0].question1
-answerButtons.innerText = questions[0].question1.answer.text
+answerButton1.innerText = questions[0].question1.answers.Text
 }
 
 
@@ -24,10 +28,10 @@ var questions = [
     {
         question1: 'How do you comment a line out in JavaScript?',
         answers: [
-            {Text: '&&', correct: false},
-            {Text: '$$', correct: false},
-            {Text: '//', correct: true},
-            {Text: '##', correct: false},
+            {Text1: '&&', correct: false},
+            {Text2: '$$', correct: false},
+            {Text3: '//', correct: true},
+            {Text4: '##', correct: false},
         ]
 
     }
