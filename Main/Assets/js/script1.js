@@ -8,10 +8,11 @@ var answerButton4 = document.getElementById("answer4")
 var timer =document.getElementById("timer")
 
 var secondsLeft = 60;
+var index = 0
 
 var questions = [
     {
-        question1: 'Which one of the below is NOT a JavaScript statement?',
+        question: 'Which one of the below is NOT a JavaScript statement?',
         answers: [
             {Text1: '1. Declaration Statement', correct: false},
             {Text2: '2. Observation Statements', correct: true},
@@ -21,7 +22,7 @@ var questions = [
 
     },
     {
-        question2: 'How do you comment a line out in JavaScript?',
+        question: 'How do you comment a line out in JavaScript?',
         answers: [
             {Text1: '1. &&', correct: false},
             {Text2: '2. $$', correct: false},
@@ -31,7 +32,7 @@ var questions = [
 
     },
     {
-        question3: 'How do you declare a JavaScript variable?',
+        question: 'How do you declare a JavaScript variable?',
         answers: [
             {Text1: '1. summerTime var', correct: false},
             {Text2: '2. v summerTime', correct: false},
@@ -41,7 +42,7 @@ var questions = [
 
     },
     {
-        question4: 'As of 2022, how many % of websites use JavaScript on the client side for web page behaviour?',
+        question: 'As of 2022, how many % of websites use JavaScript on the client side for web page behaviour?',
         answers: [
             {Text1: '1. 98%', correct: true},
             {Text2: '2. 88%', correct: false},
@@ -85,27 +86,68 @@ function setTime() {
   }
 
 function showQuestions() {
-questionText.innerText = questions[0].question1;
-answerButton1.innerText = questions[0].answers[0].Text1;
-answerButton2.innerText = questions[0].answers[1].Text2;
-answerButton3.innerText = questions[0].answers[2].Text3;
-answerButton4.innerText = questions[0].answers[3].Text4;
+questionText.innerText = questions[index].question;
+answerButton1.innerText = questions[index].answers[0].Text1;
+answerButton2.innerText = questions[index].answers[1].Text2;
+answerButton3.innerText = questions[index].answers[2].Text3;
+answerButton4.innerText = questions[index].answers[3].Text4;
 
 }
 
-answerButton1.addEventListener('click', secondQuestion);
-answerButton2.addEventListener('click', secondQuestion);
-answerButton3.addEventListener('click', secondQuestion);
-answerButton4.addEventListener('click', secondQuestion);
+answerButton1.addEventListener('click', answerCheck(this.answers[1].correct)); 
+answerButton2.addEventListener('click', answerCheck(this.answers[1].correct));
+answerButton3.addEventListener('click', answerCheck(this.answers[2].correct));
+answerButton4.addEventListener('click', answerCheck(this.answers[3].correct));
 
-function secondQuestion() {
-    questionText.innerText = questions[1].question2;
-    answerButton1.innerText = questions[1].answers[0].Text1;
-    answerButton2.innerText = questions[1].answers[1].Text2;
-    answerButton3.innerText = questions[1].answers[2].Text3;
-    answerButton4.innerText = questions[1].answers[3].Text4; 
 
+var score = 0
+
+function answerCheck(answer) { 
+    // event.preventDefault();
+console.log(answer);
+// if (answer === true) {
+//     score += 10;
+//     index += 1;
+//     showQuestions();
+// } else {
+//     secondsLeft -= 10;
+//     index += 1;
+//     showQuestions();
+// }
 }
+
+
+
+
+console.log()
+
+
+// 1. Compare user answer with actual answer
+// 2. If user answer is correct add 10 to user score value and increment index variable by 1 and call showQuestions function again
+// 3. If user answer is wrong decrement timer by 1 and increment index variable by 1 and call showQuestions function again
+
+// if (showQuestions === true)
+// score.push(10) 
+// This will work when you will have event listener added for all 4 answers buttons to check for right or wrong asnwer
+// Once you have that you can check for right or wrong answer and increment index by 1 using index++ (Because now index will be changed from 0 to 1 so it will take a next question from an array)
+// And then call answerCheck function again to display next question (incrementing index variable by 1 and calling showQuestion function)
+// You will need IF ELSE statement for checking answer
+
+
+
+// answerButton1.addEventListener('click', secondQuestion);
+// answerButton2.addEventListener('click', secondQuestion);
+// answerButton3.addEventListener('click', secondQuestion);
+// answerButton4.addEventListener('click', secondQuestion);
+
+// function secondQuestion() {
+//     questionText.innerText = questions[1].question2;
+//     answerButton1.innerText = questions[1].answers[0].Text1;
+//     answerButton2.innerText = questions[1].answers[1].Text2;
+//     answerButton3.innerText = questions[1].answers[2].Text3;
+//     answerButton4.innerText = questions[1].answers[3].Text4; 
+
+// }
 
 // answerButton1.addEventListener('click', nextQuestion);
 // answerButton2.addEventListener('click', nextQuestion);
@@ -121,3 +163,4 @@ function secondQuestion() {
 
 // }
 
+// why is called before click
