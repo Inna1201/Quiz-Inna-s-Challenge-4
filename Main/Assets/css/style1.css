@@ -30,6 +30,13 @@
     
   }
 
+  #timer {
+    text-align: end;
+    font-size: 20px;
+    color:  rgb(7, 46, 243);
+    font-weight: bolder;
+  }
+
   #question,
   #all-done,
   #scores {
