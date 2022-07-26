@@ -39,7 +39,7 @@
 
   #question,
   #all-done,
-  #scores {
+  #highscores {
     margin-left: 550px;
     margin-right: 400px;
   }
@@ -56,8 +56,8 @@
 
   .start-button,
   .button-question1,
-  .button-submit,
-  .button-back,
+  #button-submit,
+  #button-back,
   .button-clear {
     background-color: rgb(49, 82, 249);
     border: 5px solid;
@@ -73,13 +73,14 @@
   }
 
   .score,
-  #initials {
+  #initials,
+  .quiz-results {
     font-size: 20px;
     margin-bottom: 40px;
     font-weight: bolder;
   }
 
-  .button-back {
+  #button-back {
     margin-right: 10px;
 
   }

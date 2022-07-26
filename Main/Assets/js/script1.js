@@ -1,11 +1,16 @@
 var startButton = document.getElementById("start");
 var firstQuestionElements = document.getElementById("question");
-var questionText = document.getElementById("question1")
-var answerButton1 = document.getElementById("answer1")
-var answerButton2 = document.getElementById("answer2")
-var answerButton3 = document.getElementById("answer3")
-var answerButton4 = document.getElementById("answer4")
-var timer = document.getElementById("timer")
+var questionText = document.getElementById("question1");
+var answerButton1 = document.getElementById("answer1");
+var answerButton2 = document.getElementById("answer2");
+var answerButton3 = document.getElementById("answer3");
+var answerButton4 = document.getElementById("answer4");
+var timer = document.getElementById("timer");
+var endOfQuiz = document.getElementById("all-done");
+var submitButton = document.getElementById("button-submit");
+var highscores = document.getElementById("highscores");
+var initials = document.getElementById("initials");
+var backButton = document.getElementById("button-back");
 
 var secondsLeft = 60;
 var index = 0;
@@ -118,7 +123,7 @@ function answerCheck(event) {
         secondsLeft -= 10;
     }
     
-    if(index < 4) {
+    if(index < 3) {
         index += 1;
         showQuestions();
     } else {
@@ -127,18 +132,50 @@ function answerCheck(event) {
     
 }
 
+var totalScores = score.value; // shows as undefined
+var playerInitials = initials.value;
+
+
+localStorage.setItem("totalScores", JSON.stringify(totalScores));
+localStorage.setItem("playerInitials", JSON.stringify(playerInitials));
+
 function showOutput () {
     firstQuestionElements.classList.add('hide');
-    timer.classList.add('hide');   
+    timer.classList.add('hide');  
+    startButton.classList.add('hide');
+    endOfQuiz.classList.remove('hide');
+    console.log(totalScores);
+    document.querySelector(".score").textContent = "Your final score is:" + totalScores;
+
+}
+
+submitButton.addEventListener('click', submitResults);
+
+function submitResults() {
+    endOfQuiz.classList.add('hide');
+    highscores.classList.remove('hide');
+    document.querySelector(".player-list").textContent = initials.value + totalScores; // should show as a list
+}
 
 
+
+backButton.addEventListener('click', startAgain);
+
+function startAgain() {
+    startButton.classList.remove('hide');
+    firstQuestionElements.classList.add('hide');
+    highscores.classList.add('hide');
 }
 
 
 
 
+// start page appears by itself
+// seconds with second attempt goes backwards
 
-console.log()
+
+
+
 
 
 // 1. Compare user answer with actual answer
