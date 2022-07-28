@@ -52,6 +52,7 @@
     color:  rgb(251, 188, 72);
   }
 
-  /* #hide {
+  .hide {
+    border: 8px solid black;
     display: none;
-   } */
+   }

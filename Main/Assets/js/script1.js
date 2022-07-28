@@ -197,11 +197,8 @@ function startAgain() {
 clearButton.addEventListener('click', clearHighscores);
 
 function clearHighscores() {
-
     document.querySelector(".player-list").textContent = " ";
     list.classList.add('hide');
-
-
 
 }
 
