@@ -11,10 +11,15 @@ var submitButton = document.getElementById("button-submit");
 var highscores = document.getElementById("highscores");
 var initials = document.getElementById("initials");
 var backButton = document.getElementById("button-back");
+var clearButton = document.getElementById("button-clear");
+var list = document.getElementById("list")
 
-var secondsLeft = 60;
-var index = 0;
+var secondsLeft;
+var index;
+var score;
+var timerInterval;
 
+//this variable contains array of quiz questions
 var questions = [
     {
         question: 'Which one of the below is NOT a JavaScript statement?',
@@ -58,20 +63,31 @@ var questions = [
     },
 ]
 
+
+// activating 'start quiz' button; initiating seconds countdown and going to questions part
 startButton.addEventListener('click', startQuiz)
 
 function startQuiz() {
     console.log('started');
+    secondsLeft = 60;
+    index = 0;
+    score = 0;
+    timer.textContent = "Seconds left:" + secondsLeft;
     startButton.classList.add('hide');
     firstQuestionElements.classList.remove('hide');
     timer.classList.remove('hide');
+
     showQuestions();
     setTime()
 }
 
+// sets timer function
 function setTime() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+    }
     // Sets interval in variable
-    var timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         secondsLeft--;
         timer.textContent = "Seconds left:" + secondsLeft;
         if (secondsLeft === 0) {
@@ -83,13 +99,16 @@ function setTime() {
     }, 1000);
 }
 
-function sendMessage() {
+//sets function to go back to start if timer ended before all quesions replied
+function sendMessage(event) {
+    event.preventDefault();
     timer.textContent = "GAME OVER ";
     startButton.classList.remove('hide');
     firstQuestionElements.classList.add('hide');
 
 }
 
+// adds question text into the page and returns the value
 function showQuestions() {
     questionText.innerText = questions[index].question;
     answerButton1.innerText = questions[index].answers[0].Text1;
@@ -104,61 +123,68 @@ function showQuestions() {
 
 }
 
+// makes quiz answer buttons responsive
 answerButton1.addEventListener('click', answerCheck);
 answerButton2.addEventListener('click', answerCheck);
 answerButton3.addEventListener('click', answerCheck);
 answerButton4.addEventListener('click', answerCheck);
 
-
-var score = 0
-
+// if answer is correct adds 10 points to score, if wrong deducts 10 second off timer
+// sets message that inform if answer was correct or no
 function answerCheck(event) {
     event.preventDefault();
     var buttonClicked = event.target;
     var answer = buttonClicked.value;
     console.log(answer);
-    if (answer === true) {
+    console.log(typeof answer)
+    if (answer === 'true') {
+        console.log(score);
         score += 10;
+        document.querySelector(".message").textContent = "Correct!"
     } else {
         secondsLeft -= 10;
+        document.querySelector(".message").textContent = "Wrong!"
     }
-    
-    if(index < 3) {
+    //goes to the next question/ or scores page once all questions replied
+    if (index < 3) {
         index += 1;
         showQuestions();
     } else {
-         showOutput();
+        showOutput();
     }
-    
+
 }
 
-var totalScores = score.value; // shows as undefined
-var playerInitials = initials.value;
 
-
-localStorage.setItem("totalScores", JSON.stringify(totalScores));
-localStorage.setItem("playerInitials", JSON.stringify(playerInitials));
-
-function showOutput () {
+// sets score page to appear after all questions replied; shows total score
+function showOutput() {
     firstQuestionElements.classList.add('hide');
-    timer.classList.add('hide');  
+    timer.classList.add('hide');
     startButton.classList.add('hide');
     endOfQuiz.classList.remove('hide');
-    console.log(totalScores);
-    document.querySelector(".score").textContent = "Your final score is:" + totalScores;
+    console.log(score);
+    document.querySelector(".score").textContent = "Your final score is:" + score;
 
 }
 
+
+// goes to the final screen where player can see his score against his initials
 submitButton.addEventListener('click', submitResults);
 
-function submitResults() {
+function submitResults(event) {
+    event.preventDefault();
+    var playerInitials = initials.value;
+    // stores player info into the local storage as a string
+    localStorage.setItem("totalScores", JSON.stringify(score));
+    localStorage.setItem("playerInitials", JSON.stringify(playerInitials));
     endOfQuiz.classList.add('hide');
     highscores.classList.remove('hide');
-    document.querySelector(".player-list").textContent = initials.value + totalScores; // should show as a list
+    document.querySelector(".player-list").textContent = playerInitials + ' - ' + score; // should show as a list
+    initials.value = '';
 }
 
 
-
+// goes to the quiz start screen
 backButton.addEventListener('click', startAgain);
 
 function startAgain() {
@@ -167,56 +193,20 @@ function startAgain() {
     highscores.classList.add('hide');
 }
 
+// clears player scores
+clearButton.addEventListener('click', clearHighscores);
+
+function clearHighscores() {
+
+    document.querySelector(".player-list").textContent = " ";
+    list.classList.add('hide');
 
 
 
-// start page appears by itself
-// seconds with second attempt goes backwards
+}
 
 
 
 
 
 
-// 1. Compare user answer with actual answer
-// 2. If user answer is correct add 10 to user score value and increment index variable by 1 and call showQuestions function again
-// 3. If user answer is wrong decrement timer by 1 and increment index variable by 1 and call showQuestions function again
-
-// if (showQuestions === true)
-// score.push(10)
-// This will work when you will have event listener added for all 4 answers buttons to check for right or wrong asnwer
-// Once you have that you can check for right or wrong answer and increment index by 1 using index++ (Because now index will be changed from 0 to 1 so it will take a next question from an array)
-// And then call answerCheck function again to display next question (incrementing index variable by 1 and calling showQuestion function)
-// You will need IF ELSE statement for checking answer
-
-
-
-// answerButton1.addEventListener('click', secondQuestion);
-// answerButton2.addEventListener('click', secondQuestion);
-// answerButton3.addEventListener('click', secondQuestion);
-// answerButton4.addEventListener('click', secondQuestion);
-
-// function secondQuestion() {
-//     questionText.innerText = questions[1].question2;
-//     answerButton1.innerText = questions[1].answers[0].Text1;
-//     answerButton2.innerText = questions[1].answers[1].Text2;
-//     answerButton3.innerText = questions[1].answers[2].Text3;
-//     answerButton4.innerText = questions[1].answers[3].Text4;
-
-// }
-
-// answerButton1.addEventListener('click', nextQuestion);
-// answerButton2.addEventListener('click', nextQuestion);
-// answerButton3.addEventListener('click', nextQuestion);
-// answerButton4.addEventListener('click', nextQuestion);
-
-// function nextQuestion() {
-//     questionText.innerText = questions[2].question3;
-//     answerButton1.innerText = questions[2].answers[0].Text1;
-//     answerButton2.innerText = questions[2].answers[1].Text2;
-//     answerButton3.innerText = questions[2].answers[2].Text3;
-//     answerButton4.innerText = questions[2].answers[3].Text4;
-
-// }
-
-// why is called before click

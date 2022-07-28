@@ -11,7 +11,14 @@
   }
 
   header {
-    font-size: 40px;
+    font-size: 30px;
+    color:  rgb(7, 46, 243);
+    text-decoration: none
+  }
+
+  .link a:link,
+  .link a:visited {
+    text-decoration: none;
     color:  rgb(7, 46, 243);
   }
 
@@ -54,11 +61,17 @@
 
   }
 
+  .message {
+    color: gray;
+    font-size: 20;
+    font-style: italic;
+  }
+
   .start-button,
   .button-question1,
   #button-submit,
   #button-back,
-  .button-clear {
+  #button-clear {
     background-color: rgb(49, 82, 249);
     border: 5px solid;
     border-color: rgb(7, 46, 243);
@@ -86,6 +99,7 @@
   }
 
  .hide {
+  border: 8px solid red;
   display: none;
  }
 
